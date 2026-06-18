@@ -1,0 +1,2 @@
+CREATE POLICY "app_config: admin read" ON public.app_config FOR SELECT TO authenticated USING (public.has_role(auth.uid(), 'admin'::public.app_role));
+CREATE POLICY "app_config: admin write" ON public.app_config FOR ALL TO authenticated USING (public.has_role(auth.uid(), 'admin'::public.app_role)) WITH CHECK (public.has_role(auth.uid(), 'admin'::public.app_role));
