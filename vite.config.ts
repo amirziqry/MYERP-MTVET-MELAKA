@@ -6,6 +6,8 @@ export default defineConfig({
     server: { entry: "server" },
   },
   vite: {
+    // This blank array is exactly what wrangler's scanner is hunting for
+    plugins: [], 
     resolve: {
       alias: {
         "entities/lib/decode.js": path.resolve(process.cwd(), "node_modules/entities/lib/decode.js"),
