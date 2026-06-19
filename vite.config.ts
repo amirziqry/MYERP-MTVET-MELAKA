@@ -4,23 +4,15 @@ import viteReact from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 import tsConfigPaths from "vite-tsconfig-paths";
 import { cloudflare } from "@cloudflare/vite-plugin";
-import path from "node:path";
 
 export default defineConfig({
   plugins: [
+    cloudflare({ viteEnvironment: { name: "ssr" } }),
     tanstackStart({
-      server: { entry: "server" }
+      server: { entry: "./src/server.ts" }
     }),
     viteReact(),
     tailwindcss(),
-    tsConfigPaths(),
-    cloudflare() // Manually placing the plugin so Wrangler stops hunting for it
-  ],
-  resolve: {
-    alias: {
-      "entities/lib/decode.js": path.resolve(process.cwd(), "node_modules/entities/lib/decode.js"),
-      "entities/lib/encode.js": path.resolve(process.cwd(), "node_modules/entities/lib/encode.js"),
-      entities: path.resolve(process.cwd(), "node_modules/entities")
-    }
-  }
+    tsConfigPaths()
+  ]
 });
